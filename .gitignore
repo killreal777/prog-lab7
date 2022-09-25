@@ -1,0 +1,11 @@
+out
+common/target
+common/src/test
+common/src/main/resources
+client/target
+client/src/test
+client/src/main/resources
+server/target
+server/src/test
+server/src/main/resources
+.idea
