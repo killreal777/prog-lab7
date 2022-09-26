@@ -1,10 +1,8 @@
 package data.xml.model;
 
-
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-
 
 @XmlRootElement(name = "data")
 @XmlType(propOrder = { "collectionInfo", "collectionRoot" })

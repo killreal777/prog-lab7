@@ -9,11 +9,9 @@ import register.CommandRecord;
 import register.CommandsChecker;
 import script.ScriptReader;
 
-
 public class LocalCommandManager extends PrototypesManager<Command> {
     private final ClientHistory history;
     private final ScriptReader scriptReader;
-
 
     public LocalCommandManager(ScriptReader scriptReader, ClientHistory history) {
         this.history = history;
@@ -21,7 +19,6 @@ public class LocalCommandManager extends PrototypesManager<Command> {
         definePrototypes();
         CommandsChecker.check(CommandRecord.CommandType.LOCAL, getPrototypesNameList(), "LocalCommandManager");
     }
-
 
     @Override
     protected void definePrototypes() {

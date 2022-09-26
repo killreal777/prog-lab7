@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-
 @XmlRootElement(name = "organization")
 @XmlType(propOrder = { "id", "name", "coordinates", "creationDateString", "annualTurnover", "fullName",
         "employeesCount", "type", "officialAddress" })
@@ -24,11 +23,9 @@ public class Organization implements Comparable<Organization>, Serializable {
     private OrganizationType type; // not null
     private Address officialAddress; // not null
 
-
     public Organization() {
         // empty constructor for serialization
     }
-
 
     @XmlElement(name = "id")
     public Integer getId() {

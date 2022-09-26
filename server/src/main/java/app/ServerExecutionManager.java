@@ -9,7 +9,6 @@ import data.management.DataManager;
 
 import io.Terminal;
 
-
 public class ServerExecutionManager {
     private final ServerCommandManager commandsManager;
 

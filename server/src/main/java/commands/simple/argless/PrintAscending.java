@@ -6,7 +6,6 @@ import model.Organization;
 
 import java.util.function.Consumer;
 
-
 public class PrintAscending extends ServerCommand {
     public PrintAscending(DataManager dataManager) {
         super(dataManager);

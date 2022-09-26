@@ -5,7 +5,6 @@ import io.Format;
 import io.TextFormatter;
 import register.CommandRecord;
 
-
 public class Help extends Command {
     public Help() {
         this.name = "help";
@@ -17,8 +16,7 @@ public class Help extends Command {
             String name = TextFormatter.format(record.getName(), Format.YELLOW);
             String args = record.getArgumentsNames();
             if (!args.equals(""))
-                args = TextFormatter.format(TextFormatter.format(
-                        " " + args, Format.WHITE), Format.BOLD);
+                args = TextFormatter.format(TextFormatter.format(" " + args, Format.WHITE), Format.BOLD);
             String description = TextFormatter.format(record.getHelp(), Format.ITALIC);
             writeResult(String.format("%s%s: %s", name, args, description));
         }

@@ -9,13 +9,12 @@ import model.Organization;
 import java.time.LocalDateTime;
 import java.util.PriorityQueue;
 
-
 public class Add extends ArguedServerCommand<Organization> {
     public Add(DataManager dataManager) {
         super(dataManager);
         this.name = "add {element}";
     }
-    
+
     @Override
     public void execute() {
         Organization organization = this.commandArgument;

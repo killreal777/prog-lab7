@@ -2,7 +2,6 @@ package abstractions.requests;
 
 import abstractions.creator.Creator;
 
-
 public abstract class CreationCommandRequest<ArgType> extends ArguedCommandRequest<ArgType> {
     transient protected final Creator<ArgType> creator;
 

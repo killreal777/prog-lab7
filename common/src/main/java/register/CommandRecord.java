@@ -17,14 +17,12 @@ public enum CommandRecord {
     REMOVE_BY_ADDRESS(CommandType.SERVER, "remove_any_by_official_address", "{Address}",
             "удалить из коллекции один элемент, значение поля officialAddress которого эквивалентно заданному"),
 
-
     // server simple arged commands
     REMOVE_BY_ID(CommandType.SERVER, "remove_by_id", "id",
             "удалить элемент из коллекции по его id"),
 
     FILTER_STARTS_WITH_NAME(CommandType.SERVER, "filter_starts_with_name", "name",
             "вывести элементы, значение поля name которых начинается с заданной подстроки"),
-
 
     // server simple argless commands
     CLEAR(CommandType.SERVER, "clear", "",
@@ -42,7 +40,6 @@ public enum CommandRecord {
     INFO(CommandType.SERVER, "info", "",
             "вывести в стандартный поток вывода информацию о коллекции"),
 
-
     // local commands
     EXECUTE_SCRIPT(CommandType.LOCAL, "execute_script", "file_name",
             "считать и исполнить скрипт из указанного файла"),
@@ -55,7 +52,6 @@ public enum CommandRecord {
 
     HELP(CommandType.LOCAL, "help", "",
             "вывести справку по доступным командам");
-
 
     private final CommandType type;
     private final String name;
@@ -86,7 +82,6 @@ public enum CommandRecord {
     public String getHelp() {
         return help;
     }
-
 
     public enum CommandType {
         LOCAL, SERVER;

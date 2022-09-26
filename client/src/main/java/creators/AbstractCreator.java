@@ -6,7 +6,6 @@ import io.Terminal;
 import io.TextFormatter;
 import exceptions.FieldDefinitionException;
 
-
 public abstract class AbstractCreator<CreatingObject> implements Creator<CreatingObject> {
     protected final Terminal terminal;
     protected CreatingObject creatingObject;

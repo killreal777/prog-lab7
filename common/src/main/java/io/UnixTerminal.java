@@ -2,10 +2,8 @@ package io;
 
 import java.util.NoSuchElementException;
 
-
 public class UnixTerminal extends Terminal {
     private Runnable preExitCall;
-
 
     public UnixTerminal() {
         this.preExitCall = () -> {};
@@ -14,7 +12,6 @@ public class UnixTerminal extends Terminal {
     public void setPreExitCall(Runnable preExitCall) {
         this.preExitCall = preExitCall;
     }
-
 
     @Override
     protected String readLine(String invitationMessage) {

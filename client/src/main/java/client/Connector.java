@@ -10,18 +10,15 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-
 public class Connector {
     private final Terminal terminal;
     private final Client client;
-
 
     public Connector(Terminal terminal) {
         this.terminal = terminal;
         this.client = new Client();
         connect();
     }
-
 
     public Optional<String> executeCommandOnServer(CommandRequest request) {
         try {
@@ -31,7 +28,6 @@ public class Connector {
             return Optional.empty();
         }
     }
-
 
     private void connect() {
         try {
@@ -45,11 +41,10 @@ public class Connector {
     private void reconnect() {
         String input = readValidInput();
         switch (input) {
-            case "exit" -> System.exit(0);
-            case "reconnect" -> connect();
+        case "exit" -> System.exit(0);
+        case "reconnect" -> connect();
         }
     }
-
 
     private String readValidInput() {
         String input = readInput();

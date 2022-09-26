@@ -10,7 +10,6 @@ import script.UnixScriptedTerminal;
 
 import java.util.Optional;
 
-
 public class ClientExecutionManager {
     private final ClientHistory history;
     private final UnixScriptedTerminal terminal;
@@ -19,7 +18,6 @@ public class ClientExecutionManager {
     private final RequestsManager requestsManager;
     private final Connector connector;
 
-
     public ClientExecutionManager() {
         this.history = new ClientHistory();
         this.terminal = new UnixScriptedTerminal();
@@ -27,9 +25,8 @@ public class ClientExecutionManager {
         this.requestsManager = new RequestsManager(terminal);
         this.localCommandManager = new LocalCommandManager(terminal, history);
         this.connector = new Connector(terminal);
-        
-    }
 
+    }
 
     public void run() {
         terminal.print("Для вывода справки по доступным командам введите help");
@@ -37,7 +34,6 @@ public class ClientExecutionManager {
             executeNextCommand();
     }
 
-    
     public void executeNextCommand() {
         try {
             CommandReader.UserInput input = commandReader.readCommand();

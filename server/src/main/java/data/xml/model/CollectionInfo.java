@@ -6,7 +6,6 @@ import jakarta.xml.bind.annotation.XmlType;
 
 import java.time.LocalDateTime;
 
-
 @XmlRootElement(name = "collection_info")
 @XmlType(propOrder = { "collectionType", "initializationDateString", "elementsAmount" })
 public class CollectionInfo {

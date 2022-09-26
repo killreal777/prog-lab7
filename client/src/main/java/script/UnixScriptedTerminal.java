@@ -5,17 +5,14 @@ import io.UnixTerminal;
 import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 
-
 public class UnixScriptedTerminal extends UnixTerminal implements ScriptReader {
     private final ScannerManager scannerManager;
     private final ScriptExecutionManager scriptExecutionManager;
-
 
     public UnixScriptedTerminal() {
         this.scannerManager = new ScannerManager();
         this.scriptExecutionManager = new ScriptExecutionManager(scannerManager);
     }
-
 
     @Override
     public String readLineEntire(String invitationMessage) {
@@ -29,7 +26,6 @@ public class UnixScriptedTerminal extends UnixTerminal implements ScriptReader {
     public void readScript(String fileName) throws FileNotFoundException {
         scriptExecutionManager.createScriptScanner(fileName);
     }
-
 
     @Override
     protected String readLine(String invitationMessage) {

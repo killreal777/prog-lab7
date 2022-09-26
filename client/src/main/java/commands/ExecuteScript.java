@@ -6,17 +6,14 @@ import script.ScriptReader;
 
 import java.io.FileNotFoundException;
 
-
 public class ExecuteScript extends Command {
     private final ScriptReader scriptReader;
     private String scriptPath;
-
 
     public ExecuteScript(ScriptReader scriptReader) {
         this.name = "execute_script file_name";
         this.scriptReader = scriptReader;
     }
-
 
     @Override
     public void setArgs(String[] args) {

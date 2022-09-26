@@ -3,7 +3,6 @@ package app;
 import exceptions.CommandNotFoundException;
 import io.Terminal;
 
-
 import java.util.Arrays;
 
 public class CommandReader {

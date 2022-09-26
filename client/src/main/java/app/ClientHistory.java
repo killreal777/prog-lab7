@@ -14,7 +14,6 @@ public class ClientHistory {
         this.history = new Object[10];
     }
 
-
     public void addCommand(Command command) {
         shiftCommandsOnePositionToThePast();
         history[0] = command;

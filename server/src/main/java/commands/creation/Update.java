@@ -10,20 +10,18 @@ import java.time.LocalDateTime;
 import java.util.PriorityQueue;
 import java.util.function.Predicate;
 
-
 public class Update extends ArguedServerCommand<Organization> {
     public Update(DataManager dataManager) {
         super(dataManager);
         this.name = "update id {element}";
     }
 
-
     @Override
     public void execute() {
         Organization organization = this.commandArgument;
         Predicate<Organization> sameId = (org) -> org.getId().equals(organization.getId());
-        dataManager.getCollection().stream().filter(sameId).findAny().
-                ifPresentOrElse(this::update, this::setBadResultIdNotUnique);
+        dataManager.getCollection().stream().filter(sameId).findAny().ifPresentOrElse(this::update,
+                this::setBadResultIdNotUnique);
     }
 
     private void update(Organization oldOrganization) {
@@ -55,7 +53,6 @@ public class Update extends ArguedServerCommand<Organization> {
         newOrganization.setId(oldOrganization.getId());
         newOrganization.setCreationDate(LocalDateTime.now());
     }
-
 
     private void setGoodResult(String oldOrganizationName) {
         String message = String.format("Обновлена оганизация \"%s\"", oldOrganizationName);

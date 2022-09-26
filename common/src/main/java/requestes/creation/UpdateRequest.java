@@ -5,10 +5,9 @@ import exceptions.ArgumentTypeException;
 import abstractions.requests.CreationCommandRequest;
 import model.Organization;
 
-
 public class UpdateRequest extends CreationCommandRequest<Organization> {
     public UpdateRequest(Creator<Organization> creator) {
-        super( "update", creator);
+        super("update", creator);
     }
 
     @Override

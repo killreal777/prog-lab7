@@ -70,6 +70,7 @@
                     </archive>
                 </configuration>
             </plugin>
+
             <plugin>
                 <!-- Add dependencies to JAR -->
                 <groupId>org.apache.maven.plugins</groupId>

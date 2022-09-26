@@ -3,7 +3,6 @@ package requestes.creation;
 import abstractions.creator.Creator;
 import model.Organization;
 
-
 public class AddIfMaxRequest extends AddRequest {
     public AddIfMaxRequest(Creator<Organization> creator) {
         super(creator);

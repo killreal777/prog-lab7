@@ -13,7 +13,6 @@ import data.management.DataManager;
 import register.CommandRecord;
 import register.CommandsChecker;
 
-
 public class ServerCommandManager extends PrototypesManager<ServerCommand> {
     private final DataManager dataManager;
     private final Save saveCommand;
@@ -43,7 +42,7 @@ public class ServerCommandManager extends PrototypesManager<ServerCommand> {
         addPrototype("head", new Head(dataManager));
         addPrototype("print_ascending", new PrintAscending(dataManager));
         addPrototype("info", new Info(dataManager));
-        //addPrototype("save", new Save(dataManager));
+        // addPrototype("save", new Save(dataManager));
     }
 
     public Save getSaveCommand() {

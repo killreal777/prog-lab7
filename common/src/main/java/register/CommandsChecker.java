@@ -21,19 +21,19 @@ public class CommandsChecker {
     }
 
     public static void check(CommandRecord.CommandType checkingType, ArrayList<String> checkingList, String structure) {
-         ArrayList<String> correctList = correctListsMap.get(checkingType);
-         ArrayList<String> missingCommandsList = new ArrayList<>();
-         for (String command : correctList) {
-             if (checkingList.contains(command))
-                 checkingList.remove(command);
-             else
-                 missingCommandsList.add(command);
-         }
-         throwExceptionIfNecessary(missingCommandsList, checkingList, structure);
+        ArrayList<String> correctList = correctListsMap.get(checkingType);
+        ArrayList<String> missingCommandsList = new ArrayList<>();
+        for (String command : correctList) {
+            if (checkingList.contains(command))
+                checkingList.remove(command);
+            else
+                missingCommandsList.add(command);
+        }
+        throwExceptionIfNecessary(missingCommandsList, checkingList, structure);
     }
 
     private static void throwExceptionIfNecessary(ArrayList<String> missingCommands, ArrayList<String> extraCommands,
-                                                  String structureName) {
+            String structureName) {
         if (!missingCommands.isEmpty())
             throw new RegisteredCommandsNotFoundException(missingCommands.toString(), structureName);
         if (!extraCommands.isEmpty())

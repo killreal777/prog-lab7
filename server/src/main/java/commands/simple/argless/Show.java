@@ -6,9 +6,8 @@ import model.Organization;
 
 import java.util.function.Consumer;
 
-
 public class Show extends ServerCommand {
-    
+
     public Show(DataManager dataManager) {
         super(dataManager);
         this.name = "show";

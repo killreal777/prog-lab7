@@ -14,11 +14,9 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
-
 public abstract class ServerNio {
     private final Selector selector;
     private final ServerSocketChannel serverSocketChannel;
-
 
     public ServerNio(String host, int port) throws IOException {
         this.selector = Selector.open();
@@ -33,14 +31,12 @@ public abstract class ServerNio {
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
     }
 
-
     protected void handleSelector() throws IOException {
         selector.select(500);
         Set<SelectionKey> keys = selector.selectedKeys();
         Iterator<SelectionKey> iterator = keys.iterator();
         handleSelectionKeys(iterator);
     }
-
 
     private void handleSelectionKeys(Iterator<SelectionKey> iterator) throws IOException {
         while (iterator.hasNext()) {
@@ -65,7 +61,6 @@ public abstract class ServerNio {
         }
     }
 
-
     private void accept(SelectionKey key) throws IOException {
         SocketChannel clientSocketChannel = serverSocketChannel.accept();
         clientSocketChannel.configureBlocking(false);
@@ -85,7 +80,6 @@ public abstract class ServerNio {
         client.write(prepareResponseBuffer());
         client.register(key.selector(), SelectionKey.OP_READ);
     }
-
 
     abstract protected void handleRequestBuffer(ByteBuffer requestBuffer);
 

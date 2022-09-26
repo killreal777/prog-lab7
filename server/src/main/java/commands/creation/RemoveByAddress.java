@@ -9,21 +9,18 @@ import model.Organization;
 
 import java.util.function.Predicate;
 
-
 public class RemoveByAddress extends ArguedServerCommand<Address> {
     public RemoveByAddress(DataManager dataManager) {
         super(dataManager);
         this.name = "remove_any_by_official_address {officialAddress}";
     }
 
-
     @Override
     public void execute() {
         Predicate<Organization> matchAddress = (org) -> org.getOfficialAddress().equals(this.commandArgument);
-        dataManager.getCollection().stream().filter(matchAddress).findFirst().
-                ifPresentOrElse(this::removeOrganizationFromDataCollection, this::setBadResult);
+        dataManager.getCollection().stream().filter(matchAddress).findFirst()
+                .ifPresentOrElse(this::removeOrganizationFromDataCollection, this::setBadResult);
     }
-
 
     private void removeOrganizationFromDataCollection(Organization organization) {
         dataManager.getCollection().remove(organization);
@@ -31,7 +28,6 @@ public class RemoveByAddress extends ArguedServerCommand<Address> {
         dataManager.getCollectionInfo().decrementElementsAmount();
         segGoodResult(organization.getName());
     }
-
 
     private void segGoodResult(String removedOrganizationName) {
         result = String.format("Удалена оганизация \"%s\"", removedOrganizationName);

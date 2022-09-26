@@ -8,21 +8,18 @@ import model.Organization;
 
 import java.util.function.Predicate;
 
-
 public class RemoveByID extends ArguedServerCommand<Integer> {
     public RemoveByID(DataManager dataManager) {
         super(dataManager);
         this.name = "remove_by_id id";
     }
 
-
     @Override
     public void execute() {
         Predicate<Organization> matchId = (org) -> org.getId().equals(this.commandArgument);
-        dataManager.getCollection().stream().filter(matchId).findFirst().
-                ifPresentOrElse(this::removeOrganizationFromDataCollection, this::setBadResult);
+        dataManager.getCollection().stream().filter(matchId).findFirst()
+                .ifPresentOrElse(this::removeOrganizationFromDataCollection, this::setBadResult);
     }
-
 
     private void removeOrganizationFromDataCollection(Organization organization) {
         dataManager.getCollection().remove(organization);

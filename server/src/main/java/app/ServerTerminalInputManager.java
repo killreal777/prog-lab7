@@ -5,17 +5,14 @@ import io.Terminal;
 import java.io.IOException;
 import java.util.function.Supplier;
 
-
 public class ServerTerminalInputManager {
     private final Terminal terminal;
     private final Supplier<String> executeSaveCommandMethodLink;
-
 
     public ServerTerminalInputManager(Terminal terminal, Supplier<String> executeSaveCommandMethodLink) {
         this.terminal = terminal;
         this.executeSaveCommandMethodLink = executeSaveCommandMethodLink;
     }
-
 
     public void checkTerminalRequest() {
         if (isRequestFromTerminal())

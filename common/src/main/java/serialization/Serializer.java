@@ -4,7 +4,6 @@ import exceptions.DeserializationException;
 
 import java.io.*;
 
-
 public class Serializer<T extends Serializable> {
     public byte[] serialize(T object) {
         try {
