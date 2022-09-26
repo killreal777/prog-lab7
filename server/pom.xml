@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>prog-lab6</artifactId>
+        <artifactId>prog-lab7</artifactId>
         <groupId>itmo.killreal777</groupId>
         <version>1.0</version>
     </parent>
@@ -18,6 +18,13 @@
             <groupId>itmo.killreal777</groupId>
             <artifactId>common</artifactId>
             <version>1.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.5.0</version>
         </dependency>
 
         <!-- For JAXB -->
