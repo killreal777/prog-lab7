@@ -11,13 +11,13 @@ public abstract class ClientIo {
     private final int port;
 
 
-    public ClientIo(String hostname, int port) {
+    protected ClientIo(String hostname, int port) {
         this.hostname = hostname;
         this.port = port;
     }
 
 
-    public void connect() throws IOException {
+    protected void connect() throws IOException {
         this.socket = new Socket(hostname, port);
     }
 
