@@ -66,4 +66,6 @@ public class OrganizationDaoSql implements OrganizationDao {
         Consumer<PreparedStatement> setting = statement -> {};
         new VoidStatement(sql, setting).execute();
     }
+
+
 }
