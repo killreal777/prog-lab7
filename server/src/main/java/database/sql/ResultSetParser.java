@@ -1,13 +1,21 @@
 package database.sql;
 
-import database.DaoException;
 import model.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.PriorityQueue;
 
-public class CollectionParser {
+public class ResultSetParser {
+
+    public static String parsePassword(ResultSet resultSet) {
+        try {
+            return resultSet.getString("user_password");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static PriorityQueue<Organization> parseOrganizationCollection(ResultSet resultSet) {
         try {
             PriorityQueue<Organization> collection = new PriorityQueue<>();

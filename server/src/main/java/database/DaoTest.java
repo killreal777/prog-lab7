@@ -20,7 +20,7 @@ import java.util.Collection;
 
 public class DaoTest extends DatabaseConnector {
     public static void main(String[] args) {
-        fillDatabase();
+        OrganizationDaoSql.truncateTable();
         showDatabase();
     }
 

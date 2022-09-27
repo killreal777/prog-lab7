@@ -18,6 +18,12 @@ public class OrganizationDaoSql implements OrganizationDao {
         }
     }
 
+    public static void truncateTable() {
+        try (SqlStatement statement = new SqlStatement("TRUNCATE organizations")) {
+            statement.execute();
+        }
+    }
+
     @Override
     public void add(Organization org) throws DaoException {
         String sql = SqlQuery.ORGANIZATIONS_ADD.get();
@@ -33,7 +39,7 @@ public class OrganizationDaoSql implements OrganizationDao {
         String sql = SqlQuery.ORGANIZATIONS_GET_COLLECTION.get();
         try (SqlStatement statement = new SqlStatement(sql)) {
             ResultSet resultSet = statement.executeQuery();
-            return CollectionParser.parseOrganizationCollection(resultSet);
+            return ResultSetParser.parseOrganizationCollection(resultSet);
         }
     }
 

@@ -15,7 +15,13 @@ public enum SqlQuery {
 
     ORGANIZATIONS_REMOVE_BY_ID("DELETE FROM organizations WHERE organization_id = ?"),
 
-    ORGANIZATIONS_REMOVE_ALL("TRUNCATE organizations");
+    ORGANIZATIONS_REMOVE_ALL("TRUNCATE organizations"),
+
+    USERS_CREATE_TABLE(readFromFile("users_create_table.sql")),
+
+    USERS_ADD("INSERT INTO users (user_name, user_password) VALUES (?, ?)"),
+
+    USERS_GET_PASSWORD_BY_USERNAME("SELECT user_password FROM users WHERE user_name = ?");
 
 
     private final String query;
