@@ -11,4 +11,4 @@ INSERT INTO organizations (organization_id,
                            location_coordinate_y,
                            location_coordinate_z,
                            location_name)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);

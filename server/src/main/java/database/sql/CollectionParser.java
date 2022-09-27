@@ -1,4 +1,4 @@
-package database.sql.utils;
+package database.sql;
 
 import database.DaoException;
 import model.*;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.PriorityQueue;
 
-public class ResultParser {
+public class CollectionParser {
     public static PriorityQueue<Organization> parseOrganizationCollection(ResultSet resultSet) {
         try {
             PriorityQueue<Organization> collection = new PriorityQueue<>();
@@ -16,7 +16,7 @@ public class ResultParser {
             }
             return collection;
         } catch (SQLException e) {
-            throw new DaoException();
+            throw new RuntimeException(e);
         }
     }
 
@@ -26,7 +26,7 @@ public class ResultParser {
         organization.setName(resultSet.getString("organization_name"));
         organization.setFullName(resultSet.getString("organization_full_name"));
         organization.setAnnualTurnover(resultSet.getLong("annual_turnover"));
-        organization.setCreationDate(resultSet.getTimestamp("creation_date").toLocalDateTime());
+        //organization.setCreationDate(resultSet.getTimestamp("creation_date").toLocalDateTime());
         organization.setType(OrganizationType.getByID(resultSet.getInt("organization_type")));
         organization.setCoordinates(parseCoordinates(resultSet));
         organization.setOfficialAddress(parseAddress(resultSet));
@@ -43,6 +43,7 @@ public class ResultParser {
     private static Address parseAddress(ResultSet resultSet) throws SQLException {
         Address address = new Address();
         address.setZipCode(resultSet.getString("zip_code"));
+        address.setTown(parseLocation(resultSet));
         return address;
     }
 

@@ -10,8 +10,6 @@ public interface OrganizationDao {
     // create
     void add(Organization organization) throws DaoException;
 
-    void addIfMax(Organization organization) throws DaoException;
-
     // read
     Collection<Organization> getCollection() throws DaoException;
 
@@ -20,8 +18,6 @@ public interface OrganizationDao {
 
     // delete
     void remove_by_id(Integer id) throws DaoException;
-
-    void remove_by_address(Address address) throws DaoException;
 
     void remove_all() throws DaoException;
 }

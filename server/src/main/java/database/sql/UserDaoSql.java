@@ -1,4 +1,4 @@
-package database.sql.dao;
+package database.sql;
 
 import database.dao.UserDao;
 

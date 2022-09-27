@@ -1,4 +1,4 @@
-package database.database;
+package database.sql;
 
 import java.sql.*;
 
@@ -9,7 +9,7 @@ public class DatabaseConnector {
 
     public DatabaseConnector() {
         this.url = "jdbc:postgresql://localhost:5432/prog-lab7";
-        this.login = "lab7";
+        this.login = "killreal777";
         this.password = "qwerty12345";
     }
 

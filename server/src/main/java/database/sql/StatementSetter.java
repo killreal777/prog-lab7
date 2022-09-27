@@ -1,4 +1,4 @@
-package database.sql.utils;
+package database.sql;
 
 import database.DaoException;
 import model.Organization;
