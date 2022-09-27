@@ -1,14 +1,14 @@
 package database.sql;
 
+import java.io.Closeable;
 import java.sql.*;
 import java.util.function.Consumer;
 
-public class SqlStatement {
+public class SqlStatement implements Closeable {
     protected final DatabaseConnector databaseConnector;
     protected final String sql;
     protected final Consumer<PreparedStatement> setting;
-    private ResultSet resultSet;
-    private boolean booleanResult;
+    private PreparedStatement statement;
 
     public SqlStatement(String sql) {
         this.databaseConnector = new DatabaseConnector();
@@ -22,51 +22,28 @@ public class SqlStatement {
         this.setting = setting;
     }
 
-    public boolean executeVoid() {
-        execute(this::executeWithBooleanResult);
-        return booleanResult;
-    }
-
-    public ResultSet executeResulted() {
-        execute(this::executeWithResultSet);
-        return resultSet;
-    }
-
-    private void execute(Consumer<PreparedStatement> executionMethod) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = databaseConnector.getConnection();
+    public boolean execute() {
+        try (Connection connection = databaseConnector.getConnection()) {
             statement = connection.prepareStatement(sql);
             setting.accept(statement);
-            executionMethod.accept(statement);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (statement != null)
-                closeStatement(statement);
-            if (connection != null)
-                databaseConnector.closeConnection(connection);
-        }
-    }
-
-    private void executeWithBooleanResult(PreparedStatement statement) {
-        try {
-            booleanResult = statement.execute();
+            return statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void executeWithResultSet(PreparedStatement statement) {
-        try {
-            resultSet = statement.executeQuery();
+    public ResultSet executeQuery() {
+        try (Connection connection = databaseConnector.getConnection()) {
+            statement = connection.prepareStatement(sql);
+            setting.accept(statement);
+            return statement.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    protected void closeStatement(Statement statement) {
+    @Override
+    public void close() {
         try {
             if (statement != null)
                 statement.close();

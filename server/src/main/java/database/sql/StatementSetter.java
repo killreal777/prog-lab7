@@ -7,24 +7,31 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class StatementSetter {
-    public static void setOrganization(PreparedStatement statement, Organization organization) throws DaoException {
+    public static void setOrganization(PreparedStatement statement, Organization org, int parameterStartIndex) {
         try {
-            int i = 1;
-            statement.setInt(i++, organization.getId());
-            statement.setString(i++, organization.getName());
-            statement.setString(i++, organization.getFullName());
-            statement.setInt(i++, organization.getCoordinates().getX());
-            statement.setInt(i++, organization.getCoordinates().getY());
-            statement.setLong(i++, organization.getAnnualTurnover());
-            statement.setInt(i++, organization.getEmployeesCount());
-            statement.setInt(i++, organization.getType().ordinal());
-            statement.setString(i++, organization.getOfficialAddress().getZipCode());
-            statement.setLong(i++, organization.getOfficialAddress().getTown().getX());
-            statement.setInt(i++, organization.getOfficialAddress().getTown().getY());
-            statement.setFloat(i++, organization.getOfficialAddress().getTown().getZ());
-            statement.setString(i, organization.getOfficialAddress().getTown().getName());
+            int i = parameterStartIndex;
+            statement.setString(i++, org.getName());
+            statement.setString(i++, org.getFullName());
+            statement.setInt(i++, org.getCoordinates().getX());
+            statement.setInt(i++, org.getCoordinates().getY());
+            statement.setLong(i++, org.getAnnualTurnover());
+            statement.setInt(i++, org.getEmployeesCount());
+            statement.setInt(i++, org.getType().ordinal());
+            statement.setString(i++, org.getOfficialAddress().getZipCode());
+            statement.setLong(i++, org.getOfficialAddress().getTown().getX());
+            statement.setInt(i++, org.getOfficialAddress().getTown().getY());
+            statement.setFloat(i++, org.getOfficialAddress().getTown().getZ());
+            statement.setString(i++, org.getOfficialAddress().getTown().getName());
         } catch (SQLException e) {
-            throw new DaoException();
+            throw new RuntimeException();
+        }
+    }
+
+    public static void setCheckingId(PreparedStatement statement, Integer id, int parameterIndex) {
+        try {
+            statement.setInt(parameterIndex, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

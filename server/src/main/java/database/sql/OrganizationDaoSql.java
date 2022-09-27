@@ -12,36 +12,51 @@ import java.util.function.Consumer;
 public class OrganizationDaoSql implements OrganizationDao {
 
     @Override
-    public void add(Organization organization) throws DaoException {
+    public void add(Organization org) throws DaoException {
         String sql = SqlQuery.ORGANIZATION_ADD.get();
-        Consumer<PreparedStatement> setting = statement -> StatementSetter.setOrganization(statement, organization);
-        new SqlStatement(sql, setting).executeVoid();
+        Consumer<PreparedStatement> statementSetting = statement ->
+                StatementSetter.setOrganization(statement, org, 1);
+        try (SqlStatement statement = new SqlStatement(sql, statementSetting)) {
+            statement.execute();
+        }
     }
 
     @Override
     public Collection<Organization> getCollection() throws DaoException {
         String sql = SqlQuery.ORGANIZATION_GET_COLLECTION.get();
-        ResultSet resultSet = new SqlStatement(sql).executeResulted();
-        return CollectionParser.parseOrganizationCollection(resultSet);
+        try (SqlStatement statement = new SqlStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+            return CollectionParser.parseOrganizationCollection(resultSet);
+        }
     }
 
     @Override
-    public void update_by_id(Integer id, Organization organization) throws DaoException {
+    public void update_by_id(Integer id, Organization org) throws DaoException {
         String sql = SqlQuery.ORGANIZATION_UPDATE_BY_ID.get();
-        Consumer<PreparedStatement> setting = statement -> StatementSetter.setOrganization(statement, organization);
-        new SqlStatement(sql, setting).executeVoid();
+        Consumer<PreparedStatement> statementSetting = statement -> {
+            StatementSetter.setOrganization(statement, org, 1);
+            StatementSetter.setCheckingId(statement, id, 13);
+        };
+        try (SqlStatement statement = new SqlStatement(sql, statementSetting)) {
+            statement.execute();
+        }
     }
 
     @Override
     public void remove_by_id(Integer id) throws DaoException {
         String sql = SqlQuery.ORGANIZATION_REMOVE_BY_ID.get();
-        Consumer<PreparedStatement> setting = statement -> {};
-        new SqlStatement(sql, setting).executeVoid();
+        Consumer<PreparedStatement> statementSetting = statement ->
+                StatementSetter.setCheckingId(statement, id, 1);
+        try (SqlStatement statement = new SqlStatement(sql, statementSetting)) {
+            statement.execute();
+        }
     }
 
     @Override
     public void remove_all() throws DaoException {
         String sql = SqlQuery.ORGANIZATION_REMOVE_ALL.get();
-        new SqlStatement(sql).executeVoid();
+        try (SqlStatement statement = new SqlStatement(sql)) {
+            statement.execute();
+        }
     }
 }

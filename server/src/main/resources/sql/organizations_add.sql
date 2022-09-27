@@ -1,5 +1,4 @@
-INSERT INTO organizations (organization_id,
-                           organization_name,
+INSERT INTO organizations (organization_name,
                            organization_full_name,
                            organization_coordinate_x,
                            organization_coordinate_y,
@@ -11,4 +10,4 @@ INSERT INTO organizations (organization_id,
                            location_coordinate_y,
                            location_coordinate_z,
                            location_name)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);

@@ -5,17 +5,17 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public enum SqlQuery {
-    CREATE_TABLES(readFromFile("create_tables.sql")),
+    CREATE_TABLES(readFromFile("organizations_create_table.sql")),
 
-    ORGANIZATION_ADD(readFromFile("organization_add.sql")),
+    ORGANIZATION_ADD(readFromFile("organizations_add.sql")),
 
-    ORGANIZATION_GET_COLLECTION("SELECT * FROM organizations;"),
+    ORGANIZATION_GET_COLLECTION("SELECT * FROM organizations"),
 
-    ORGANIZATION_UPDATE_BY_ID(readFromFile("organization_update_by_id.sql")),
+    ORGANIZATION_UPDATE_BY_ID(readFromFile("organizations_update_by_id.sql")),
 
-    ORGANIZATION_REMOVE_BY_ID("DELETE FROM organizations WHERE id = ?"),
+    ORGANIZATION_REMOVE_BY_ID("DELETE FROM organizations WHERE organization_id = ?"),
 
-    ORGANIZATION_REMOVE_ALL("DELETE * FROM organizations");
+    ORGANIZATION_REMOVE_ALL("TRUNCATE organizations");
 
 
     private final String query;
