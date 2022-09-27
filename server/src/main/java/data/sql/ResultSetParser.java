@@ -1,4 +1,4 @@
-package database.sql;
+package data.sql;
 
 import model.*;
 
@@ -36,7 +36,6 @@ public class ResultSetParser {
         organization.setFullName(resultSet.getString("organization_full_name"));
         organization.setAnnualTurnover(resultSet.getLong("annual_turnover"));
         organization.setCreationDate(resultSet.getTimestamp("creation_date").toLocalDateTime());
-        System.out.println(organization.getCreationDateString());
         organization.setType(OrganizationType.getByID(resultSet.getInt("organization_type")));
         organization.setCoordinates(parseCoordinates(resultSet));
         organization.setOfficialAddress(parseAddress(resultSet));

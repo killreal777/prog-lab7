@@ -1,15 +1,15 @@
-package database.dao;
+package data.dao;
 
 import model.Organization;
 
-import java.util.Collection;
+import java.util.PriorityQueue;
 
 public interface OrganizationDao {
     // create
     void add(Organization organization);
 
     // read
-    Collection<Organization> getCollection();
+    PriorityQueue<Organization> getCollection();
 
     // update
     void updateById(Integer id, Organization organization);

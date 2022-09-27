@@ -9,17 +9,16 @@ import commands.creation.Update;
 import commands.simple.arged.FilterStartsWithName;
 import commands.simple.arged.RemoveByID;
 import commands.simple.argless.*;
-import data.management.DataManager;
+import data.DaoProxy;
+import data.dao.Dao;
 import register.CommandRecord;
 import register.CommandsChecker;
 
 public class ServerCommandManager extends PrototypesManager<ServerCommand> {
-    private final DataManager dataManager;
-    private final Save saveCommand;
+    private final Dao dao;
 
-    public ServerCommandManager(DataManager dataManager) {
-        this.dataManager = dataManager;
-        this.saveCommand = new Save(dataManager);
+    public ServerCommandManager() {
+        this.dao = new DaoProxy();
         definePrototypes();
         CommandsChecker.check(CommandRecord.CommandType.SERVER, getPrototypesNameList(), "ServerCommandManager");
     }
@@ -27,25 +26,20 @@ public class ServerCommandManager extends PrototypesManager<ServerCommand> {
     @Override
     protected void definePrototypes() {
         // server creation commands
-        addPrototype("add", new Add(dataManager));
-        addPrototype("add_if_max", new AddIfMax(dataManager));
-        addPrototype("update", new Update(dataManager));
-        addPrototype("remove_any_by_official_address", new RemoveByAddress(dataManager));
+        addPrototype("add", new Add(dao));
+        addPrototype("add_if_max", new AddIfMax(dao));
+        addPrototype("update", new Update(dao));
+        addPrototype("remove_any_by_official_address", new RemoveByAddress(dao));
 
         // server simple arged commands
-        addPrototype("remove_by_id", new RemoveByID(dataManager));
-        addPrototype("filter_starts_with_name", new FilterStartsWithName(dataManager));
+        addPrototype("remove_by_id", new RemoveByID(dao));
+        addPrototype("filter_starts_with_name", new FilterStartsWithName(dao));
 
         // server simple argless commands
-        addPrototype("clear", new Clear(dataManager));
-        addPrototype("show", new Show(dataManager));
-        addPrototype("head", new Head(dataManager));
-        addPrototype("print_ascending", new PrintAscending(dataManager));
-        addPrototype("info", new Info(dataManager));
-        // addPrototype("save", new Save(dataManager));
-    }
-
-    public Save getSaveCommand() {
-        return saveCommand;
+        addPrototype("clear", new Clear(dao));
+        addPrototype("show", new Show(dao));
+        addPrototype("head", new Head(dao));
+        addPrototype("print_ascending", new PrintAscending(dao));
+        addPrototype("info", new Info(dao));
     }
 }

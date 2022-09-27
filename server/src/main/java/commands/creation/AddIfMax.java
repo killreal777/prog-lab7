@@ -1,13 +1,11 @@
 package commands.creation;
 
-import data.management.DataManager;
-import io.Format;
-import io.TextFormatter;
+import data.dao.Dao;
 import model.Organization;
 
 public class AddIfMax extends Add {
-    public AddIfMax(DataManager dataManager) {
-        super(dataManager);
+    public AddIfMax(Dao dao) {
+        super(dao);
         this.name = "add_if_max {element}";
     }
 
@@ -15,17 +13,12 @@ public class AddIfMax extends Add {
     public void execute() {
         Organization organization = this.commandArgument;
         if (!isOrganizationMax(organization))
-            setBadResult();
+            setBadResult("Значение элемента не превышает значение наибольщего элемента в коллекции");
         else
             super.execute();
     }
 
     private boolean isOrganizationMax(Organization newOrganization) {
-        return dataManager.getCollection().stream().map(newOrganization::compareTo).allMatch((a) -> a > 0);
-    }
-
-    private void setBadResult() {
-        this.result = "Значение элемента не превышает значение наибольщего элемента в коллекции";
-        this.result = TextFormatter.format(result, Format.RED);
+        return dao.getCollection().stream().map(newOrganization::compareTo).allMatch((a) -> a > 0);
     }
 }

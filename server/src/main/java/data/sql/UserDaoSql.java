@@ -1,6 +1,6 @@
-package database.sql;
+package data.sql;
 
-import database.dao.UserDao;
+import data.dao.UserDao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

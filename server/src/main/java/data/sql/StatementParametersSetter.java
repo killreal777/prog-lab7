@@ -1,4 +1,4 @@
-package database.sql;
+package data.sql;
 
 import model.Organization;
 

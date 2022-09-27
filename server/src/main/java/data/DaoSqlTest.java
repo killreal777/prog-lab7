@@ -1,9 +1,7 @@
-package database;
+package data;
 
-import database.dao.Dao;
-import database.dao.OrganizationDao;
-import database.dao.UserDao;
-import database.sql.*;
+import data.dao.Dao;
+import data.sql.*;
 import io.Format;
 import io.TextFormatter;
 import model.Address;
@@ -11,10 +9,9 @@ import model.Coordinates;
 import model.Organization;
 import model.OrganizationType;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 
-public class DaoTest extends DatabaseConnector {
+public class DaoSqlTest extends DatabaseConnector {
     public static Dao dao = new DaoSql();
 
     enum User {

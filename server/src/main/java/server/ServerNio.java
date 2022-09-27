@@ -1,6 +1,8 @@
 package server;
 
 import exceptions.ConnectionException;
+import io.Format;
+import io.TextFormatter;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -29,6 +31,12 @@ public abstract class ServerNio {
         serverSocketChannel.socket().bind(serverSocketAddress);
         serverSocketChannel.configureBlocking(false);
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+    }
+
+    public void run() throws IOException {
+        System.out.println(TextFormatter.format("Сервер начал работу", Format.GREEN));
+        while (true)
+            handleSelector();
     }
 
     protected void handleSelector() throws IOException {

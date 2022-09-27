@@ -1,4 +1,4 @@
-package database.sql;
+package data.sql;
 
 import java.io.FileInputStream;
 import java.io.IOException;

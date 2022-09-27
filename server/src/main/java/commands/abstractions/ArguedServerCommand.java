@@ -1,13 +1,13 @@
 package commands.abstractions;
 
 import abstractions.requests.ArguedCommandRequest;
-import data.management.DataManager;
+import data.dao.Dao;
 
 public abstract class ArguedServerCommand<ArgType> extends ServerCommand {
     protected ArgType commandArgument;
 
-    public ArguedServerCommand(DataManager dataManager) {
-        super(dataManager);
+    public ArguedServerCommand(Dao dao) {
+        super(dao);
     }
 
     public void extractArgumentFromRequest(ArguedCommandRequest<ArgType> request) {

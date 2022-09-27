@@ -1,4 +1,4 @@
-package database.dao;
+package data.dao;
 
 public interface UserDao {
     // create

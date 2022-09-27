@@ -1,23 +1,19 @@
 package commands.simple.argless;
 
 import commands.abstractions.ServerCommand;
-import data.management.DataManager;
+import data.dao.Dao;
 import io.Format;
 import io.TextFormatter;
-import model.Organization;
 
 public class Clear extends ServerCommand {
-    public Clear(DataManager dataManager) {
-        super(dataManager);
+    public Clear(Dao dao) {
+        super(dao);
         this.name = "clear";
     }
 
     @Override
     public void execute() {
-        for (Organization organization : dataManager.getCollection())
-            dataManager.getIdGenerator().setToRemoved(organization.getId());
-        dataManager.getCollection().clear();
-        dataManager.getCollectionInfo().setElementsAmount(0);
+        dao.getCollection().clear();
         result = TextFormatter.format("Коллекция очищена", Format.GREEN);
     }
 }

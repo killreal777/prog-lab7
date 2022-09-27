@@ -1,16 +1,12 @@
 package commands.abstractions;
 
 import abstractions.command.Command;
-import data.management.DataManager;
-
-/**
- * Superclass for all Commands, which deal with DataManager
- */
+import data.dao.Dao;
 
 public abstract class ServerCommand extends Command {
-    protected DataManager dataManager;
+    protected Dao dao;
 
-    public ServerCommand(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public ServerCommand(Dao dao) {
+        this.dao = dao;
     }
 }
