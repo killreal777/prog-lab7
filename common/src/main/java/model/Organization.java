@@ -22,6 +22,7 @@ public class Organization implements Comparable<Organization>, Serializable {
     private int employeesCount; // > 0
     private OrganizationType type; // not null
     private Address officialAddress; // not null
+    private String ownerLogin;
 
     public Organization() {
         // empty constructor for serialization
@@ -70,6 +71,10 @@ public class Organization implements Comparable<Organization>, Serializable {
     @XmlElement(name = "official_address")
     public Address getOfficialAddress() {
         return officialAddress;
+    }
+
+    public String getOwnerLogin() {
+        return ownerLogin;
     }
 
     public void setId(Integer id) {
@@ -126,6 +131,10 @@ public class Organization implements Comparable<Organization>, Serializable {
         this.officialAddress = officialAddress;
     }
 
+    public void setOwnerLogin(String ownerLogin) {
+        this.ownerLogin = ownerLogin;
+    }
+
     @Override
     public String toString() {
         String[] dateTime = creationDateString.split("T");
@@ -133,7 +142,8 @@ public class Organization implements Comparable<Organization>, Serializable {
                 + String.format("Name: \"%s\"\tFull name: \"%s\"\tType: \"%s\"\n", name, fullName, type)
                 + String.format("Annual turnover: %s\tEmployees count: %s\n", annualTurnover, employeesCount)
                 + String.format("ADDRESS %s\tCoordinates: %s\n", officialAddress, coordinates)
-                + String.format("Creation date: %s %s", dateTime[0], dateTime[1]);
+                + String.format("Creation date: %s %s\n", dateTime[0], dateTime[1])
+                + String.format("Owner Login: %s", ownerLogin);
     }
 
     @Override

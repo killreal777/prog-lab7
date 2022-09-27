@@ -10,6 +10,7 @@ public class ResultSetParser {
 
     public static String parsePassword(ResultSet resultSet) {
         try {
+            resultSet.next();
             return resultSet.getString("user_password");
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -34,10 +35,12 @@ public class ResultSetParser {
         organization.setName(resultSet.getString("organization_name"));
         organization.setFullName(resultSet.getString("organization_full_name"));
         organization.setAnnualTurnover(resultSet.getLong("annual_turnover"));
-        //organization.setCreationDate(resultSet.getTimestamp("creation_date").toLocalDateTime());
+        organization.setCreationDate(resultSet.getTimestamp("creation_date").toLocalDateTime());
+        System.out.println(organization.getCreationDateString());
         organization.setType(OrganizationType.getByID(resultSet.getInt("organization_type")));
         organization.setCoordinates(parseCoordinates(resultSet));
         organization.setOfficialAddress(parseAddress(resultSet));
+        organization.setOwnerLogin(resultSet.getString("owner_login"));
         return organization;
     }
 

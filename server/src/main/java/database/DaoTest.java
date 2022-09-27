@@ -1,68 +1,90 @@
 package database;
 
-import creators.OrganizationCreator;
+import database.dao.Dao;
 import database.dao.OrganizationDao;
+import database.dao.UserDao;
 import database.sql.*;
 import io.Format;
-import io.Terminal;
 import io.TextFormatter;
 import model.Address;
 import model.Coordinates;
 import model.Organization;
 import model.OrganizationType;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
 public class DaoTest extends DatabaseConnector {
+    public static Dao dao = new DaoSql();
+
+    enum User {
+        KIRILL("killreal777", "qwerty12345"),
+        MAX("him_maxim", "54321qwerty"),
+        MARTIN("seductor_amadeus", "");
+        final String userName;
+        final String password;
+        User(String userName, String password) {
+            this.userName = userName;
+            this.password = password;
+        }
+    }
+
     public static void main(String[] args) {
-        OrganizationDaoSql.truncateTable();
         showDatabase();
+    }
+
+    public static void reset() {
+        DaoSql.dropTablesIfExist();
+        DaoSql.createTablesIfNotExist();
+        createUsers();
+        fillDatabase();
+    }
+
+    public static void removeAllByOwnerLoginTest() {
+        showDatabase();
+        System.out.println("\n\n\n\n\n\n");
+        dao.removeAllByOwnerLogin("killreal777");
+        showDatabase();
+    }
+
+    public static void createUsers() {
+        for (User user : User.values()) {
+            dao.add(user.userName, user.password);
+        }
+        ok("Users created");
+    }
+
+    public static void testPasswords() {
+        System.out.println(dao.getPasswordByUserName("killreal777"));
+        System.out.println(dao.getPasswordByUserName("seductor_amadeus"));
+        System.out.println(dao.getPasswordByUserName("him_maxim"));
     }
 
 
     public static void removeByIdTest() {
-        OrganizationDao dao = new OrganizationDaoSql();
         showDatabase();
-        for (int i = 42; i <= 52; i++) {
-            dao.remove_by_id(i);
+        for (int i = 1; i <= 11; i++) {
+            dao.removeById(i);
         }
         ok("11 ORGANIZATIONS REMOVED");
         showDatabase();
     }
 
-    public static void removeAllTest() {
-        OrganizationDao dao = new OrganizationDaoSql();
-        printCollection(dao.getCollection());
-        dao.remove_all();
-        ok("ALL ORGANIZATIONS REMOVED");
-        printCollection(dao.getCollection());
-    }
-
-    public static void test2() {
-        OrganizationDao dao = new OrganizationDaoSql();
-        dao.remove_all();
-    }
 
     public static void updateTest() {
-        OrganizationDao dao = new OrganizationDaoSql();
-        Organization organization = org(21);
+        Organization organization = org(16);
         organization.setFullName("A.S.PUSHKIN");
-        dao.update_by_id(55, organization);
-        ok("UPDATED id55");
-        organization = org(22);
+        dao.updateById(16, organization);
+        ok("UPDATED id16");
+        organization = org(13);
         organization.setFullName("MMMAAAAXXX");
-        dao.update_by_id(41, organization);
-        ok("UPDATED id41");
+        organization.setOwnerLogin("killreal777");
+        dao.updateById(13, organization);
+        ok("UPDATED id13");
         printCollection(dao.getCollection());
     }
 
     public static void fillDatabase() {
-        OrganizationDao dao = new OrganizationDaoSql();
         for (int i = 1; i < 20; i++) {
             dao.add(org(i));
         }
@@ -70,7 +92,6 @@ public class DaoTest extends DatabaseConnector {
     }
 
     public static void showDatabase() {
-        OrganizationDao dao = new OrganizationDaoSql();
         printCollection(dao.getCollection());
     }
 
@@ -88,6 +109,7 @@ public class DaoTest extends DatabaseConnector {
         organization.setEmployeesCount(i);
         organization.setCoordinates(new Coordinates(i, i));
         organization.setOfficialAddress(new Address(i.toString(), i.longValue(), i, i.floatValue(), i.toString()));
+        organization.setOwnerLogin(User.values()[i%3].userName);
         return organization;
     }
 
@@ -95,7 +117,6 @@ public class DaoTest extends DatabaseConnector {
         if (collection.isEmpty())
             System.out.println("Collection is empty");
         for (Organization org : collection) {
-            org.setCreationDate(LocalDateTime.now());
             System.out.println(org);
         }
     }

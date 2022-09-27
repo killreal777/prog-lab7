@@ -1,23 +1,21 @@
 package database.dao;
 
-import database.DaoException;
-import model.Address;
 import model.Organization;
 
 import java.util.Collection;
 
 public interface OrganizationDao {
     // create
-    void add(Organization organization) throws DaoException;
+    void add(Organization organization);
 
     // read
-    Collection<Organization> getCollection() throws DaoException;
+    Collection<Organization> getCollection();
 
     // update
-    void update_by_id(Integer id, Organization organization) throws DaoException;
+    void updateById(Integer id, Organization organization);
 
     // delete
-    void remove_by_id(Integer id) throws DaoException;
+    void removeById(Integer id);
 
-    void remove_all() throws DaoException;
+    void removeAllByOwnerLogin(String ownerLogin);
 }

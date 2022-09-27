@@ -1,15 +1,15 @@
 package database.sql;
 
-import database.DaoException;
 import model.Organization;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class StatementSetter {
-    static void setOrganization(PreparedStatement statement, Organization org, int parameterStartIndex) {
+public class StatementParametersSetter {
+
+    static void setOrganization(PreparedStatement statement, Organization org, int parameterIndex) {
         try {
-            int i = parameterStartIndex;
+            int i = parameterIndex;
             statement.setString(i++, org.getName());
             statement.setString(i++, org.getFullName());
             statement.setInt(i++, org.getCoordinates().getX());
@@ -21,13 +21,14 @@ public class StatementSetter {
             statement.setLong(i++, org.getOfficialAddress().getTown().getX());
             statement.setInt(i++, org.getOfficialAddress().getTown().getY());
             statement.setFloat(i++, org.getOfficialAddress().getTown().getZ());
-            statement.setString(i, org.getOfficialAddress().getTown().getName());
+            statement.setString(i++, org.getOfficialAddress().getTown().getName());
+            statement.setString(i, org.getOwnerLogin());
         } catch (SQLException e) {
             throw new RuntimeException();
         }
     }
 
-    static void setCheckingId(PreparedStatement statement, Integer id, int parameterIndex) {
+    static void setId(PreparedStatement statement, Integer id, int parameterIndex) {
         try {
             statement.setInt(parameterIndex, id);
         } catch (SQLException e) {
@@ -35,7 +36,7 @@ public class StatementSetter {
         }
     }
 
-    static void setUsername(PreparedStatement statement, String username, int parameterIndex) {
+    static void setUserName(PreparedStatement statement, String username, int parameterIndex) {
         try {
             statement.setString(parameterIndex, username);
         } catch (SQLException e) {
@@ -43,7 +44,7 @@ public class StatementSetter {
         }
     }
 
-    static void setUserPassword(PreparedStatement statement, String password, int parameterIndex) {
+    static void setPassword(PreparedStatement statement, String password, int parameterIndex) {
         try {
             statement.setString(parameterIndex, password);
         } catch (SQLException e) {

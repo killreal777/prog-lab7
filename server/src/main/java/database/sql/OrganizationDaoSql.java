@@ -1,6 +1,5 @@
 package database.sql;
 
-import database.DaoException;
 import database.dao.OrganizationDao;
 import model.Organization;
 
@@ -11,31 +10,18 @@ import java.util.function.Consumer;
 
 public class OrganizationDaoSql implements OrganizationDao {
 
-    public OrganizationDaoSql() {
-        String sql = SqlQuery.ORGANIZATIONS_CREATE_TABLE.get();
-        try (SqlStatement statement = new SqlStatement(sql)) {
-            statement.execute();
-        }
-    }
-
-    public static void truncateTable() {
-        try (SqlStatement statement = new SqlStatement("TRUNCATE organizations")) {
-            statement.execute();
-        }
-    }
-
     @Override
-    public void add(Organization org) throws DaoException {
+    public void add(Organization org) {
         String sql = SqlQuery.ORGANIZATIONS_ADD.get();
         Consumer<PreparedStatement> statementSetting = statement ->
-                StatementSetter.setOrganization(statement, org, 1);
+                StatementParametersSetter.setOrganization(statement, org, 1);
         try (SqlStatement statement = new SqlStatement(sql, statementSetting)) {
             statement.execute();
         }
     }
 
     @Override
-    public Collection<Organization> getCollection() throws DaoException {
+    public Collection<Organization> getCollection() {
         String sql = SqlQuery.ORGANIZATIONS_GET_COLLECTION.get();
         try (SqlStatement statement = new SqlStatement(sql)) {
             ResultSet resultSet = statement.executeQuery();
@@ -44,11 +30,11 @@ public class OrganizationDaoSql implements OrganizationDao {
     }
 
     @Override
-    public void update_by_id(Integer id, Organization org) throws DaoException {
+    public void updateById(Integer id, Organization org) {
         String sql = SqlQuery.ORGANIZATIONS_UPDATE_BY_ID.get();
         Consumer<PreparedStatement> statementSetting = statement -> {
-            StatementSetter.setOrganization(statement, org, 1);
-            StatementSetter.setCheckingId(statement, id, 13);
+            StatementParametersSetter.setOrganization(statement, org, 1);
+            StatementParametersSetter.setId(statement, id, 14);
         };
         try (SqlStatement statement = new SqlStatement(sql, statementSetting)) {
             statement.execute();
@@ -56,19 +42,21 @@ public class OrganizationDaoSql implements OrganizationDao {
     }
 
     @Override
-    public void remove_by_id(Integer id) throws DaoException {
+    public void removeById(Integer id) {
         String sql = SqlQuery.ORGANIZATIONS_REMOVE_BY_ID.get();
         Consumer<PreparedStatement> statementSetting = statement ->
-                StatementSetter.setCheckingId(statement, id, 1);
+                StatementParametersSetter.setId(statement, id, 1);
         try (SqlStatement statement = new SqlStatement(sql, statementSetting)) {
             statement.execute();
         }
     }
 
     @Override
-    public void remove_all() throws DaoException {
-        String sql = SqlQuery.ORGANIZATIONS_REMOVE_ALL.get();
-        try (SqlStatement statement = new SqlStatement(sql)) {
+    public void removeAllByOwnerLogin(String ownerLogin) {
+        String sql = SqlQuery.ORGANIZATIONS_REMOVE_ALL_BY_OWNER_LOGIN.get();
+        Consumer<PreparedStatement> statementSetting = statement ->
+                StatementParametersSetter.setUserName(statement, ownerLogin, 1);
+        try (SqlStatement statement = new SqlStatement(sql, statementSetting)) {
             statement.execute();
         }
     }

@@ -5,5 +5,5 @@ public interface UserDao {
     void add(String userName, String password);
 
     // read
-    String getPasswordByUsername(String userName);
+    String getPasswordByUserName(String userName);
 }

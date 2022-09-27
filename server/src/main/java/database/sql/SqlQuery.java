@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public enum SqlQuery {
-    ORGANIZATIONS_CREATE_TABLE(readFromFile("organizations_create_table.sql")),
+
+    CREATE_TABLES(readFromFile("create_tables.sql")),
 
     ORGANIZATIONS_ADD(readFromFile("organizations_add.sql")),
 
@@ -15,13 +16,11 @@ public enum SqlQuery {
 
     ORGANIZATIONS_REMOVE_BY_ID("DELETE FROM organizations WHERE organization_id = ?"),
 
-    ORGANIZATIONS_REMOVE_ALL("TRUNCATE organizations"),
-
-    USERS_CREATE_TABLE(readFromFile("users_create_table.sql")),
+    ORGANIZATIONS_REMOVE_ALL_BY_OWNER_LOGIN("DELETE FROM organizations WHERE owner_login = ?"),
 
     USERS_ADD("INSERT INTO users (user_name, user_password) VALUES (?, ?)"),
 
-    USERS_GET_PASSWORD_BY_USERNAME("SELECT user_password FROM users WHERE user_name = ?");
+    USERS_GET_PASSWORD_BY_LOGIN("SELECT user_password FROM users WHERE user_name = ?");
 
 
     private final String query;
