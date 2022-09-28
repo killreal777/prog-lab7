@@ -4,6 +4,7 @@ import data.dao.UserDao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class UserDaoSql implements UserDao {
@@ -17,6 +18,15 @@ public class UserDaoSql implements UserDao {
         };
         try (SqlStatement statement = new SqlStatement(sql, statementSetting)) {
             statement.execute();
+        }
+    }
+
+    @Override
+    public List<String> getUserNamesList() {
+        String sql = SqlQuery.USERS_GET_USER_NAMES_LIST.get();
+        try (SqlStatement statement = new SqlStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+            return ResultSetParser.parseUserNamesList(resultSet);
         }
     }
 

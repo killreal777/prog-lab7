@@ -7,13 +7,13 @@ import creators.OrganizationCreator;
 import io.Terminal;
 import register.CommandRecord;
 import register.CommandsChecker;
-import requestes.creation.AddIfMaxRequest;
-import requestes.creation.AddRequest;
-import requestes.creation.RemoveByAddressRequest;
-import requestes.creation.UpdateRequest;
-import requestes.simple.arged.FilterStartsWithNameRequest;
-import requestes.simple.arged.RemoveByIdRequest;
-import requestes.simple.argless.ArglessCommandRequest;
+import requestes.AddIfMaxRequest;
+import requestes.AddRequest;
+import requestes.RemoveByAddressRequest;
+import requestes.UpdateRequest;
+import requestes.FilterStartsWithNameRequest;
+import requestes.RemoveByIdRequest;
+import requestes.ArglessCommandRequest;
 
 public class RequestsManager extends PrototypesManager<CommandRequest> {
     private final Terminal terminal;

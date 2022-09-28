@@ -17,6 +17,7 @@ public class ClientExecutionManager {
     private final LocalCommandManager localCommandManager;
     private final RequestsManager requestsManager;
     private final Connector connector;
+    private String userName;
 
     public ClientExecutionManager() {
         this.history = new ClientHistory();
@@ -29,7 +30,10 @@ public class ClientExecutionManager {
     }
 
     public void run() {
+        new LoginManager(terminal, connector, this::setUserName).login();
         terminal.print("Для вывода справки по доступным командам введите help");
+        terminal.print("Для авторизации введите команду login");
+        terminal.print("Для регистрации введите команду register");
         while (true)
             executeNextCommand();
     }
@@ -65,10 +69,15 @@ public class ClientExecutionManager {
     private void executeServerCommand(String commandName, String[] commandArgs) {
         CommandRequest request = requestsManager.clonePrototype(commandName);
         request.setCommandArgs(commandArgs);
+        request.setUserName(userName);
         Optional<String> result = connector.executeCommandOnServer(request);
         if (result.isPresent()) {
             terminal.print(result.get());
             history.addRequest(request);
         }
+    }
+
+    private void setUserName(String userName) {
+        this.userName = userName;
     }
 }

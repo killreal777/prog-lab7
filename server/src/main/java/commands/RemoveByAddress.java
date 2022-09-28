@@ -1,6 +1,5 @@
-package commands.creation;
+package commands;
 
-import commands.abstractions.ArguedServerCommand;
 import data.dao.Dao;
 import model.Address;
 import model.Organization;
@@ -21,8 +20,14 @@ public class RemoveByAddress extends ArguedServerCommand<Address> {
     }
 
     private void removeOrganizationFromDataCollection(Organization organization) {
-        dao.removeById(organization.getId());
-        setGoodResult(String.format("Удалена оганизация \"%s\"", organization.getName()));
+        if (!isUserExists()) {
+            setBadResult("Пользователь не зарегестрирован");
+        } else if (!organization.getOwnerLogin().equals(userName)) {
+            setBadResult("Вы не являетесь владельцем этого объекта");
+        } else {
+            dao.removeById(organization.getId());
+            setGoodResult(String.format("Удалена оганизация \"%s\"", organization.getName()));
+        }
     }
 
     private void setBadResult() {

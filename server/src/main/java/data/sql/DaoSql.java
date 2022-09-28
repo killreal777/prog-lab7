@@ -4,6 +4,7 @@ import data.dao.Dao;
 import model.Organization;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class DaoSql implements Dao {
@@ -57,6 +58,11 @@ public class DaoSql implements Dao {
     @Override
     public void add(String userName, String password) {
         userDaoSql.add(userName, password);
+    }
+
+    @Override
+    public List<String> getUserNamesList() {
+        return userDaoSql.getUserNamesList();
     }
 
     @Override

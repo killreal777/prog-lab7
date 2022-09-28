@@ -1,6 +1,5 @@
-package commands.simple.arged;
+package commands;
 
-import commands.abstractions.ArguedServerCommand;
 import data.dao.Dao;
 import model.Organization;
 

@@ -1,6 +1,5 @@
-package commands.simple.argless;
+package commands;
 
-import commands.abstractions.ServerCommand;
 import data.dao.Dao;
 
 public class Info extends ServerCommand {

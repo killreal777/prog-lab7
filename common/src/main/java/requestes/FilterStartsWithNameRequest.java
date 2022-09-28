@@ -1,4 +1,4 @@
-package requestes.simple.arged;
+package requestes;
 
 import abstractions.requests.ArguedCommandRequest;
 

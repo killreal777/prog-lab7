@@ -4,6 +4,8 @@ import model.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class ResultSetParser {
@@ -12,6 +14,17 @@ public class ResultSetParser {
         try {
             resultSet.next();
             return resultSet.getString("user_password");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<String> parseUserNamesList(ResultSet resultSet) {
+        try {
+            List<String> userNameList = new ArrayList<>();
+            while (resultSet.next())
+                userNameList.add(resultSet.getString("user_name"));
+            return userNameList;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

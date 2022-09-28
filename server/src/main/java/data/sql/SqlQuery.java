@@ -20,6 +20,8 @@ public enum SqlQuery {
 
     USERS_ADD("INSERT INTO users (user_name, user_password) VALUES (?, ?)"),
 
+    USERS_GET_USER_NAMES_LIST("SELECT user_name FROM users"),
+
     USERS_GET_PASSWORD_BY_LOGIN("SELECT user_password FROM users WHERE user_name = ?");
 
 

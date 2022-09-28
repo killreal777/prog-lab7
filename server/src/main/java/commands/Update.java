@@ -1,6 +1,5 @@
-package commands.creation;
+package commands;
 
-import commands.abstractions.ArguedServerCommand;
 import data.dao.Dao;
 import model.Organization;
 
@@ -26,9 +25,14 @@ public class Update extends ArguedServerCommand<Organization> {
     }
 
     private void update(Organization oldOrganization) {
-        if (collectionContainsFullName(dao.getCollection(), oldOrganization)) {
+        if (!isUserExists()) {
+            setBadResult("Пользователь не зарегестрирован");
+        } else if (!oldOrganization.getOwnerLogin().equals(userName)) {
+            setBadResult("Вы не являетесь владельцем этого объекта");
+        } else if (collectionContainsFullName(dao.getCollection(), oldOrganization)) {
             setBadResult("Полное имя организации неуникально");
         } else {
+            organization.setOwnerLogin(userName);
             dao.updateById(id, organization);
             setGoodResult(String.format("Обновлена оганизация \"%s\"", oldOrganization.getName()));
         }

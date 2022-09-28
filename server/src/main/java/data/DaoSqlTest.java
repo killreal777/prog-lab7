@@ -27,7 +27,16 @@ public class DaoSqlTest extends DatabaseConnector {
     }
 
     public static void main(String[] args) {
-        showDatabase();
+        users();
+    }
+
+    public static void users() {
+        Dao dao = new DaoSql();
+        for (String userName : dao.getUserNamesList()) {
+            System.out.print(userName);
+            System.out.print(" ");
+            System.out.println(dao.getPasswordByUserName(userName));
+        }
     }
 
     public static void reset() {

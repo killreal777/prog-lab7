@@ -4,15 +4,18 @@ import data.dao.Dao;
 import data.sql.DaoSql;
 import model.Organization;
 
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class DaoProxy implements Dao {
     private final Dao dao;
     private PriorityQueue<Organization> collection;
+    private List<String> userNamesList;
 
     public DaoProxy() {
         this.dao = new DaoSql();
         this.collection = dao.getCollection();
+        this.userNamesList = dao.getUserNamesList();
     }
 
     @Override
@@ -47,6 +50,12 @@ public class DaoProxy implements Dao {
     @Override
     public void add(String userName, String password) {
         dao.add(userName, password);
+        userNamesList = dao.getUserNamesList();
+    }
+
+    @Override
+    public List<String> getUserNamesList() {
+        return userNamesList;
     }
 
     @Override

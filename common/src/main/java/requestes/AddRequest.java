@@ -1,4 +1,4 @@
-package requestes.creation;
+package requestes;
 
 import abstractions.creator.Creator;
 import abstractions.requests.CreationCommandRequest;

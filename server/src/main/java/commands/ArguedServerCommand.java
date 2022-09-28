@@ -1,4 +1,4 @@
-package commands.abstractions;
+package commands;
 
 import abstractions.requests.ArguedCommandRequest;
 import data.dao.Dao;

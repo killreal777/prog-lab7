@@ -7,21 +7,26 @@ import java.io.Serializable;
 
 public abstract class CommandRequest extends CloneablePrototype implements Serializable {
     protected String commandName;
+    protected String userName;
 
     public CommandRequest(String commandName) {
         this.commandName = commandName;
     }
 
-    /**
-     * Children of ArgedCommandRequest must override this method ArglessCommandRequest also overrides this method but
-     * just for checking arguments absence
-     */
     abstract public void setCommandArgs(String[] args);
 
     protected void checkArgumentsAmount(String[] args, int expectedAmount) {
         int inputtedAmount = args.length;
         if (inputtedAmount != expectedAmount)
             throw new ArgumentAmountException(inputtedAmount, expectedAmount);
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public String getCommandName() {

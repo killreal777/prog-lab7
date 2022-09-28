@@ -1,6 +1,5 @@
-package commands.creation;
+package commands;
 
-import commands.abstractions.ArguedServerCommand;
 import data.dao.Dao;
 import model.Organization;
 
@@ -15,9 +14,12 @@ public class Add extends ArguedServerCommand<Organization> {
     @Override
     public void execute() {
         Organization organization = this.commandArgument;
-        if (collectionContainsFullName(dao.getCollection(), organization.getFullName())) {
+        if (!isUserExists()) {
+            setBadResult("Пользователь не зарегестрирован");
+        } else if (collectionContainsFullName(dao.getCollection(), organization.getFullName())) {
             setBadResult("Полное имя организации неуникально");
         } else {
+            organization.setOwnerLogin(userName);
             dao.add(organization);
             setGoodResult("Элемент успешно добавлен");
         }
