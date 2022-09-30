@@ -26,16 +26,19 @@ public class ClientExecutionManager {
         this.requestsManager = new RequestsManager(terminal);
         this.localCommandManager = new LocalCommandManager(terminal, history);
         this.connector = new Connector(terminal);
-
+        this.userName = "";
     }
 
     public void run() {
-        new LoginManager(terminal, connector, this::setUserName).login();
-        terminal.print("Для вывода справки по доступным командам введите help");
-        terminal.print("Для авторизации введите команду login");
-        terminal.print("Для регистрации введите команду register");
-        while (true)
-            executeNextCommand();
+        while (true) {
+            if (!userName.equals(""))
+                executeNextCommand();
+            else {
+                terminal.print("Вы вошли как гость");
+                new LoginManager(terminal, connector, this::setUserName).login();
+                terminal.print("Для вывода справки по доступным командам введите help");
+            }
+        }
     }
 
     public void executeNextCommand() {

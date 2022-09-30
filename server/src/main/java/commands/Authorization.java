@@ -12,7 +12,7 @@ public class Authorization extends ArguedServerCommand<String> {
         if (!isUserExists()) {
             setBadResult("Пользователь не зарегестрирован");
         } else if (!dao.getPasswordByUserName(userName).equals(commandArgument)) {
-            setBadResult("Неверный паорль" + dao.getPasswordByUserName(userName));
+            setBadResult("Неверный паорль");
         } else {
             setGoodResult(String.format("Вы вошли как %s", userName));
         }

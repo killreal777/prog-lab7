@@ -14,7 +14,7 @@ public class Clear extends ServerCommand {
             setBadResult("Пользователь не зарегестрирован");
         } else {
             dao.removeAllByOwnerLogin(userName);
-            setGoodResult("Удалены все объекты, владельцами которых вы являлись");
+            setGoodResult("Удалены все объекты, владельцем которых вы являлись");
         }
     }
 }

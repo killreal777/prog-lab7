@@ -2,15 +2,16 @@ package app;
 
 import abstractions.requests.CommandRequest;
 import client.Connector;
+import io.Format;
 import io.Terminal;
+import io.TextFormatter;
 import requestes.AuthorizationRequest;
 import requestes.RegistrationRequest;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.function.Consumer;
 
 public class LoginManager {
@@ -18,7 +19,6 @@ public class LoginManager {
     private final Connector connector;
     private final Consumer<String> setUserName;
     private String userName;
-    private String password;
 
     public LoginManager(Terminal terminal, Connector connector, Consumer<String> setUserName) {
         this.terminal = terminal;
@@ -42,24 +42,26 @@ public class LoginManager {
     }
 
     private String readStartCommand() {
-        String input = "";
+        String input = terminal.readLineEntire("Введите \"a\" для авторизации или \"r\" для регистрации: ");
         while (!input.equals("a") && !input.equals("r"))
-            input = terminal.readLineEntire("Введите \"a\" для авторизации или \"r\" для регистрации: ");
+            input = terminal.readLineEntire(TextFormatter.format("Вам доступны только команды \"а\" и \"r\": ", Format.RED));
         return input;
     }
 
     private void configureRequest(CommandRequest request) {
-        userName = terminal.readLineEntire("Login: ");
-        password = cryptPassword(terminal.readLineEntire("Password: "));
+        userName = terminal.readLineEntire(TextFormatter.format("Login: ", Format.YELLOW));
+        //String password = terminal.readLineEntire("Password: ");
+        String password = cryptPassword(terminal.readLineEntire(TextFormatter.format("Password: ", Format.YELLOW)));
         request.setUserName(userName);
         request.setCommandArgs(new String[]{password});
     }
 
     private String cryptPassword(String password) {
         try {
-            String a = MessageDigest.getInstance("MD2").digest(password.getBytes()).toString();
-            System.out.println(a);
-            return a;
+            MessageDigest md = MessageDigest.getInstance("MD2");
+            byte[] messageDigest = md.digest(password.getBytes());
+            BigInteger no = new BigInteger(1, messageDigest);
+            return no.toString(36);
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -67,13 +69,13 @@ public class LoginManager {
 
     private void parseResponse(String response) {
         terminal.print(response);
-        if (!isResponseGood(response))
+        if (responseIsNotGood(response))
             login();
         else
             setUserName.accept(userName);
     }
 
-    private boolean isResponseGood(String response) {
-        return Arrays.asList(response.split(" ")).contains("вошли");
+    private boolean responseIsNotGood(String response) {
+        return !Arrays.asList(response.split(" ")).contains("вошли");
     }
 }
