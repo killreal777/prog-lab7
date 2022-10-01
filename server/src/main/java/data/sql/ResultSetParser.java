@@ -5,6 +5,7 @@ import model.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -30,7 +31,7 @@ public class ResultSetParser {
         }
     }
 
-    public static PriorityQueue<Organization> parseOrganizationCollection(ResultSet resultSet) {
+    public static Collection<Organization> parseOrganizationCollection(ResultSet resultSet) {
         try {
             PriorityQueue<Organization> collection = new PriorityQueue<>();
             while (resultSet.next()) {

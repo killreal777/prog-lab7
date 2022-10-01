@@ -3,6 +3,7 @@ package commands;
 import data.dao.Dao;
 import model.Organization;
 
+import java.util.Collection;
 import java.util.PriorityQueue;
 
 public class Add extends ArguedServerCommand<Organization> {
@@ -25,7 +26,7 @@ public class Add extends ArguedServerCommand<Organization> {
         }
     }
 
-    private boolean collectionContainsFullName(PriorityQueue<Organization> collection, String fullName) {
+    private boolean collectionContainsFullName(Collection<Organization> collection, String fullName) {
         return collection.stream().map(Organization::getFullName).anyMatch(fullName::equals);
     }
 }

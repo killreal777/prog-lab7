@@ -1,6 +1,7 @@
 package server;
 
 import exceptions.ConnectionException;
+import exceptions.ServerException;
 import io.Format;
 import io.TextFormatter;
 
@@ -64,18 +65,18 @@ public abstract class ServerNio {
                 if (key.isWritable())
                     write(key);
             }
-        } catch (SocketException | ConnectionException e) {
+        } catch (SocketException | ConnectionException | ServerException e) {
             key.cancel();
         }
     }
 
-    private void accept(SelectionKey key) throws IOException {
+    protected void accept(SelectionKey key) throws IOException {
         SocketChannel clientSocketChannel = serverSocketChannel.accept();
         clientSocketChannel.configureBlocking(false);
         clientSocketChannel.register(key.selector(), SelectionKey.OP_READ);
     }
 
-    private void read(SelectionKey key) throws IOException {
+    protected void read(SelectionKey key) throws IOException {
         SocketChannel client = (SocketChannel) key.channel();
         ByteBuffer buffer = ByteBuffer.allocate(1024 * 1024);
         client.read(buffer);
@@ -83,7 +84,7 @@ public abstract class ServerNio {
         client.register(key.selector(), SelectionKey.OP_WRITE);
     }
 
-    private void write(SelectionKey key) throws IOException {
+    protected void write(SelectionKey key) throws IOException {
         SocketChannel client = (SocketChannel) key.channel();
         client.write(prepareResponseBuffer());
         client.register(key.selector(), SelectionKey.OP_READ);

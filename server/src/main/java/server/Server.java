@@ -3,15 +3,13 @@ package server;
 import abstractions.requests.CommandRequest;
 import exceptions.ConnectionException;
 import exceptions.DeserializationException;
-import io.Format;
-import io.TextFormatter;
 import serialization.Serializer;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.function.Function;
 
-public class Server extends ServerNio {
+public class Server extends ServerMultiThread {
     private final Function<CommandRequest, String> executeCommandFunction;
     private final Serializer<CommandRequest> commandRequestSerializer;
     private final Serializer<String> stringSerializer;

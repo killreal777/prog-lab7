@@ -5,7 +5,7 @@ import model.Organization;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.PriorityQueue;
+import java.util.Collection;
 import java.util.function.Consumer;
 
 public class OrganizationDaoSql implements OrganizationDao {
@@ -21,7 +21,7 @@ public class OrganizationDaoSql implements OrganizationDao {
     }
 
     @Override
-    public PriorityQueue<Organization> getCollection() {
+    public Collection<Organization> getCollection() {
         String sql = SqlQuery.ORGANIZATIONS_GET_COLLECTION.get();
         try (SqlStatement statement = new SqlStatement(sql)) {
             ResultSet resultSet = statement.executeQuery();

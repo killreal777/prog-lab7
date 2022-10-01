@@ -3,6 +3,7 @@ package commands;
 import data.dao.Dao;
 import model.Organization;
 
+import java.util.Collection;
 import java.util.PriorityQueue;
 import java.util.function.Predicate;
 
@@ -38,7 +39,7 @@ public class Update extends ArguedServerCommand<Organization> {
         }
     }
 
-    private boolean collectionContainsFullName(PriorityQueue<Organization> collection, Organization oldOrganization) {
+    private boolean collectionContainsFullName(Collection<Organization> collection, Organization oldOrganization) {
         if (organization.getFullName().equals(oldOrganization.getFullName()))
             return false;
         else

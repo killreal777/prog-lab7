@@ -5,7 +5,6 @@ import model.Organization;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.PriorityQueue;
 
 public class DaoSql implements Dao {
     private final UserDaoSql userDaoSql;
@@ -36,7 +35,7 @@ public class DaoSql implements Dao {
     }
 
     @Override
-    public PriorityQueue<Organization> getCollection() {
+    public Collection<Organization> getCollection() {
         return organizationDaoSql.getCollection();
     }
 
