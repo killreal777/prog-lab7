@@ -1,5 +1,6 @@
 package server;
 
+import exceptions.ConnectionException;
 import exceptions.ServerException;
 import io.Format;
 import io.TextFormatter;
@@ -10,6 +11,7 @@ import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -24,19 +26,19 @@ public abstract class ServerMultiThread {
     }
 
     private void configureServerSocketChannel(String host, int port) throws IOException {
-        SocketAddress serverSocketAddress = new InetSocketAddress(host, port);
-        serverSocketChannel.socket().bind(serverSocketAddress);
+        SocketAddress serverAddress = new InetSocketAddress(host, port);
+        serverSocketChannel.socket().bind(serverAddress);
         serverSocketChannel.configureBlocking(false);
     }
 
     public void run() throws IOException {
         System.out.println(TextFormatter.format("Сервер начал работу", Format.GREEN));
         while (true) {
-            registerNewClient();
+            acceptNewClient();
         }
     }
 
-    private void registerNewClient() throws IOException {
+    private void acceptNewClient() throws IOException {
         SocketChannel client = serverSocketChannel.accept();
         if (client != null)
             new Thread(() -> handleClient(client)).start();
@@ -48,12 +50,8 @@ public abstract class ServerMultiThread {
                 read(client);
                 write(client);
             }
-        } catch (IOException ioException) {
-            try {
-                client.close();
-            } catch (IOException ignored) {
-                System.out.println("Клиент отключился");
-            }
+        } catch (IOException | ConnectionException ignored) {
+            System.out.println("Client disconnected");
         }
     }
 
@@ -64,13 +62,14 @@ public abstract class ServerMultiThread {
     }
 
     private void write(SocketChannel client) throws IOException {
-        cachedThreadPool.execute(() -> {
+        Runnable write = () -> {
             try {
                 client.write(prepareResponseBuffer());
-            } catch (IOException ignored) {
-                System.out.println("Клиент отключился");
+            } catch (IOException e) {
+                throw new ConnectionException();
             }
-        });
+        };
+        cachedThreadPool.execute(write);
     }
 
     abstract protected void handleRequestBuffer(ByteBuffer requestBuffer);

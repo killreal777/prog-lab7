@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 public class UserDaoSql implements UserDao {
 
     @Override
-    public void add(String userName, String password) {
+    public synchronized void add(String userName, String password) {
         String sql = SqlQuery.USERS_ADD.get();
         Consumer<PreparedStatement> statementSetting = statement -> {
             StatementParametersSetter.setUserName(statement, userName, 1);
@@ -22,7 +22,7 @@ public class UserDaoSql implements UserDao {
     }
 
     @Override
-    public List<String> getUserNamesList() {
+    public synchronized List<String> getUserNamesList() {
         String sql = SqlQuery.USERS_GET_USER_NAMES_LIST.get();
         try (SqlStatement statement = new SqlStatement(sql)) {
             ResultSet resultSet = statement.executeQuery();
@@ -31,7 +31,7 @@ public class UserDaoSql implements UserDao {
     }
 
     @Override
-    public String getPasswordByUserName(String userName) {
+    public synchronized String getPasswordByUserName(String userName) {
         String sql = SqlQuery.USERS_GET_PASSWORD_BY_LOGIN.get();
         Consumer<PreparedStatement> statementSetting = statement ->
                 StatementParametersSetter.setUserName(statement, userName, 1);

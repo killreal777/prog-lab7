@@ -32,7 +32,6 @@ public enum OrganizationType implements Serializable {
         return name;
     }
 
-    // TODO
     public static class InvalidIDException extends RuntimeException {
     }
 }

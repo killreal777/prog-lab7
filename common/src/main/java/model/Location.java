@@ -2,13 +2,8 @@ package model;
 
 import exceptions.FieldDefinitionException;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
-@XmlRootElement(name = "town")
-@XmlType(propOrder = { "x", "y", "z", "name" })
 public class Location implements Serializable {
     private Long x; // not null
     private int y;
@@ -25,22 +20,18 @@ public class Location implements Serializable {
     public Location() {
     }
 
-    @XmlElement
     public Long getX() {
         return x;
     }
 
-    @XmlElement
     public int getY() {
         return y;
     }
 
-    @XmlElement
     public float getZ() {
         return z;
     }
 
-    @XmlElement
     public String getName() {
         return name;
     }
@@ -72,9 +63,8 @@ public class Location implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Location))
+        if (!(obj instanceof Location loc))
             return false;
-        Location loc = (Location) obj;
         return loc.name.equals(name) && loc.x.equals(x) && loc.y == y && loc.z == z;
     }
 }

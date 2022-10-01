@@ -17,11 +17,11 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
-public abstract class ServerNio {
+public abstract class ServerNioWithSelector {
     private final Selector selector;
     private final ServerSocketChannel serverSocketChannel;
 
-    public ServerNio(String host, int port) throws IOException {
+    public ServerNioWithSelector(String host, int port) throws IOException {
         this.selector = Selector.open();
         this.serverSocketChannel = ServerSocketChannel.open();
         configureServerSocketChannel(host, port);

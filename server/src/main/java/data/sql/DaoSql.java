@@ -30,42 +30,42 @@ public class DaoSql implements Dao {
     }
 
     @Override
-    public void add(Organization organization) {
+    public synchronized void add(Organization organization) {
         organizationDaoSql.add(organization);
     }
 
     @Override
-    public Collection<Organization> getCollection() {
+    public synchronized Collection<Organization> getCollection() {
         return organizationDaoSql.getCollection();
     }
 
     @Override
-    public void updateById(Integer id, Organization organization) {
+    public synchronized void updateById(Integer id, Organization organization) {
         organizationDaoSql.updateById(id, organization);
     }
 
     @Override
-    public void removeById(Integer id) {
+    public synchronized void removeById(Integer id) {
         organizationDaoSql.removeById(id);
     }
 
     @Override
-    public void removeAllByOwnerLogin(String ownerLogin) {
+    public synchronized void removeAllByOwnerLogin(String ownerLogin) {
         organizationDaoSql.removeAllByOwnerLogin(ownerLogin);
     }
 
     @Override
-    public void add(String userName, String password) {
+    public synchronized void add(String userName, String password) {
         userDaoSql.add(userName, password);
     }
 
     @Override
-    public List<String> getUserNamesList() {
+    public synchronized List<String> getUserNamesList() {
         return userDaoSql.getUserNamesList();
     }
 
     @Override
-    public String getPasswordByUserName(String userName) {
+    public synchronized String getPasswordByUserName(String userName) {
         return userDaoSql.getPasswordByUserName(userName);
     }
 }

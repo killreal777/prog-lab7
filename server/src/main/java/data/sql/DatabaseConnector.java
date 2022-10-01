@@ -8,12 +8,12 @@ public class DatabaseConnector {
     private final String password;
 
     public DatabaseConnector() {
-        //this.url = "jdbc:postgresql://localhost:5432/prog-lab7";
-        //this.login = "lab7";
-        //this.password = "qwerty12345";
-        this.url = "jdbc:postgresql://localhost:5432/studs";
-        this.login = "s333291";
-        this.password = "HD2l1bAg84I5TrGW";
+        this.url = "jdbc:postgresql://localhost:5432/prog-lab7";
+        this.login = "lab7";
+        this.password = "qwerty12345";
+        //this.url = "jdbc:postgresql://localhost:5432/studs";
+        //this.login = "s333291";
+        //this.password = "HD2l1bAg84I5TrGW";
     }
 
     public Connection getConnection() {

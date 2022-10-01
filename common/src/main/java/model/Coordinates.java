@@ -2,11 +2,8 @@ package model;
 
 import exceptions.FieldDefinitionException;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-@XmlRootElement(name = "coordinates")
 public class Coordinates implements Serializable {
     private int x; // > -535
     private int y; // <= 630
@@ -19,12 +16,10 @@ public class Coordinates implements Serializable {
     public Coordinates() {
     }
 
-    @XmlElement
     public int getX() {
         return x;
     }
 
-    @XmlElement
     public int getY() {
         return y;
     }
